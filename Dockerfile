@@ -1,0 +1,19 @@
+FROM php:8.2-apache
+
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    zip \
+    unzip \
+    && docker-php-ext-install pgsql pdo_pgsql
+
+RUN a2enmod rewrite
+
+COPY . /var/www/html/
+
+WORKDIR /var/www/html
+
+RUN chown -R www-data:www-data /var/www/html
+
+COPY docker/apache.conf /etc/apache2/sites-available/000-default.conf
+
+EXPOSE 80
