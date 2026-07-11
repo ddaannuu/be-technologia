@@ -8,16 +8,33 @@ class Auth extends CI_Controller {
     private $lockout_time = 60;  
 
     public function __construct() {
-        parent::__construct();
-        $this->load->database();
-        $this->load->library('session');
+		parent::__construct();
 
-        header("Access-Control-Allow-Origin: http://localhost:5173");
-        header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-        header("Access-Control-Allow-Headers: Content-Type, Authorization");
-        header("Access-Control-Allow-Credentials: true");
-        header("Content-Type: application/json");
-    }
+		$this->load->model('Product_model');
+
+		$allowedOrigins = [
+			"http://localhost:5173",
+			"https://fe-technologia-git-main-rifky-danu-asmoros-projects.vercel.app",
+			// nanti tambahkan domain production jika berubah
+			// "https://fe-technologia.vercel.app"
+		];
+
+		$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+
+		if (in_array($origin, $allowedOrigins, true)) {
+			header("Access-Control-Allow-Origin: $origin");
+		}
+
+		header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+		header("Access-Control-Allow-Headers: Content-Type, Authorization");
+		header("Access-Control-Allow-Credentials: true");
+		header("Content-Type: application/json");
+
+		if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+			http_response_code(200);
+			exit;
+		}
+	}
 
     public function login_api() {
         if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
