@@ -15,6 +15,7 @@ class Auth extends CI_Controller {
 		$allowedOrigins = [
 			"http://localhost:5173",
 			"https://fe-technologia-git-main-rifky-danu-asmoros-projects.vercel.app",
+			"https://fe-technologia-opal.vercel.app",
 			// nanti tambahkan domain production jika berubah
 			// "https://fe-technologia.vercel.app"
 		];

@@ -12,7 +12,8 @@ class Users extends CI_Controller {
 
 		$allowedOrigins = [
 			"http://localhost:5173",
-			"https://fe-technologia-git-main-rifky-danu-asmoros-projects.vercel.app"
+			"https://fe-technologia-git-main-rifky-danu-asmoros-projects.vercel.app",
+			"https://fe-technologia-opal.vercel.app"
 		];
 
 		$origin = $_SERVER['HTTP_ORIGIN'] ?? '';

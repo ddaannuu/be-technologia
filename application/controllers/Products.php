@@ -11,6 +11,7 @@ class Products extends CI_Controller {
 		$allowedOrigins = [
 			"http://localhost:5173",
 			"https://fe-technologia-git-main-rifky-danu-asmoros-projects.vercel.app",
+			"https://fe-technologia-opal.vercel.app"
 			// nanti tambahkan domain production jika berubah
 			// "https://fe-technologia.vercel.app"
 		];
@@ -90,16 +91,15 @@ public function create_form() {
         $category    = $this->input->post('category');
         $buy_link    = $this->input->post('buy_link');
         $description = $this->input->post('description');
-        $upload_dir  = realpath(dirname(APPPATH) . '/../vue-project/public/Images/') . '/';
+    
+		$image_1 = $this->input->post('image_1');
+		$image_2 = $this->input->post('image_2');
+		$image_3 = $this->input->post('image_3');
+		$qr_code = $this->input->post('qr_code');
 
-        $image_1 = $this->_upload_file('image_1_file', $upload_dir, $errors, 'Gambar 1');
-        $image_2 = $this->_upload_file('image_2_file', $upload_dir, $errors, 'Gambar 2');
-        $image_3 = $this->_upload_file('image_3_file', $upload_dir, $errors, 'Gambar 3');
-        $qr_code = $this->_upload_file('qr_code_file', $upload_dir, $errors, 'QR Code');
-
-        if (empty($image_1)) {
-            $errors[] = "Gambar 1 wajib diupload.";
-        }
+		if (empty($image_1)) {
+			$errors[] = "Gambar 1 wajib diisi.";
+		}
 
         if (empty($errors)) {
             $data = [
@@ -118,7 +118,19 @@ public function create_form() {
                 'qr_code'     => $qr_code
             ];
 
-            $this->db->insert('products', $data);
+            $result = $this->db->insert('products', $data);
+
+			if (!$result) {
+
+				$error = $this->db->error();
+
+				echo json_encode([
+					"success" => false,
+					"db_error" => $error
+				]);
+
+				return;
+			}
             $id = $this->db->insert_id();
             $success = true;
 
