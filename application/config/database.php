@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------
@@ -76,20 +76,16 @@ $query_builder = TRUE;
 
 
 $db['default'] = array(
-    'dsn'      => '',
-    'hostname' => 'aws-0-ap-southeast-1.pooler.supabase.com',
-    'username' => 'postgres.qtgaduhjbuxyosnmgpib',
-    'password' => 'pocongmakansingkong',
-    'database' => 'postgres',
-    'dbdriver' => 'postgre',
-    'port'     => 5432,
-    'pconnect' => FALSE,
-    'db_debug' => TRUE,
-    'cache_on' => FALSE,
-    'char_set' => 'utf8',
-    'dbcollat' => 'utf8_general_ci',
+	'dsn'      => '',
+	'hostname' => getenv('DB_HOST'),
+	'username' => getenv('DB_USER'),
+	'password' => getenv('DB_PASS'),
+	'database' => getenv('DB_NAME'),
+	'dbdriver' => 'postgre',
+	'port' => getenv('DB_PORT'),
+	'pconnect' => FALSE,
+	'db_debug' => TRUE,
+	'cache_on' => FALSE,
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
 );
-
-
-
-
